@@ -1,0 +1,26 @@
+CREATE DATABASE cliente;
+USE cliente;
+
+CREATE TABLE pedido (
+	ID BIGINT(20) PRIMARY KEY,
+	cadastro DATE NOT NULL,
+	id_cliente BIGINT(20) NOT NULL,
+	total DECIMAL(19, 2) NOT NULL
+);
+
+CREATE TABLE cliente (
+	id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE produto (
+	id BIGINT(20) PRIMARY KEY AUTO_INCREMENT,
+	nome VARCHAR(255) NOT NULL,
+	quantidade INT(11) NOT NULL,
+	valor DECIMAL(19, 2) NOT NULL,
+	id_pedido BIGINT(20) NOT NULL
+);
+
+
+ALTER TABLE pedido ADD CONSTRAINT fk_cliente FOREIGN KEY (id_cliente) REFERENCES cliente(id);
+ALTER TABLE produto ADD CONSTRAINT fk_pedido FOREIGN KEY (id_pedido) REFERENCES pedido(id) ON DELETE CASCADE;
